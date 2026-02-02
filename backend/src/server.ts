@@ -1,9 +1,11 @@
 import Fastify from "fastify";
+import pool from "./db";
 
 const server = Fastify({ logger: true });
 
 server.get("/health", async () => {
-  return { status: "ok" };
+  const result = await pool.query("SELECT NOW()");
+  return { status: "ok", time: result.rows[0].now };
 });
 
 const start = async () => {
