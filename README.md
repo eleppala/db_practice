@@ -17,16 +17,23 @@ This project does not yet contain any specific features beyond the basic setup. 
 1. Clone the repository
 2. Copy `.env.example` to `.env` and fill in the values
 3. Run `make up`
-4. Test: `curl http://localhost:3000/health`
+4. Run `make migrate` (in a separate terminal)
+5. Test: `curl http://localhost:3000/health`
 
 ## Makefile Commands
 
-| Command      | Description                                      |
-|--------------|--------------------------------------------------|
-| `make up`    | Build and start all containers                   |
-| `make down`  | Stop all containers                              |
-| `make clean` | Stop containers and remove built images          |
-| `make fclean`| Stop containers, remove images, volumes and deps |
+| Command        | Description                                      |
+|----------------|--------------------------------------------------|
+| `make up`      | Build and start all containers                   |
+| `make migrate` | Run database migrations                          |
+| `make down`    | Stop all containers                              |
+| `make clean`   | Stop containers and remove built images          |
+| `make psql`    | Open PostgreSQL shell inside the database         |
+| `make fclean`  | Stop containers, remove images, volumes and deps |
+
+## Database Migrations
+
+SQL migration files are located in `backend/src/migrations/`. Each file represents a single database change and is executed in alphabetical order. Migrations are tracked in a `migrations` table to ensure each file runs only once.
 
 ## Development
 
