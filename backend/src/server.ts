@@ -1,5 +1,6 @@
 import Fastify from "fastify";
 import pool from "./db";
+import exampleRoutes from "./routes/example";
 
 const server = Fastify({ logger: true });
 
@@ -7,6 +8,8 @@ server.get("/health", async () => {
   const result = await pool.query("SELECT NOW()");
   return { status: "ok", time: result.rows[0].now };
 });
+
+server.register(exampleRoutes);
 
 const start = async () => {
   try {

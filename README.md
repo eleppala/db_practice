@@ -31,6 +31,17 @@ This project does not yet contain any specific features beyond the basic setup. 
 | `make psql`    | Open PostgreSQL shell inside the database         |
 | `make fclean`  | Stop containers, remove images, volumes and deps |
 
+## API Endpoints
+
+| Method   | URL              | Description              |
+|----------|------------------|--------------------------|
+| `GET`    | `/health`        | Health check             |
+| `GET`    | `/examples`      | Get all examples         |
+| `GET`    | `/examples/:id`  | Get one example by id    |
+| `POST`   | `/examples`      | Create a new example     |
+| `PUT`    | `/examples/:id`  | Update an example by id  |
+| `DELETE` | `/examples/:id`  | Delete an example by id  |
+
 ## Database Migrations
 
 SQL migration files are located in `backend/src/migrations/`. Each file represents a single database change and is executed in alphabetical order. Migrations are tracked in a `migrations` table to ensure each file runs only once.
