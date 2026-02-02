@@ -7,4 +7,4 @@ RUN npm install
 
 COPY . . 
 
-CMD ["npx", "ts-node", "src/server.ts"] 
+CMD ["npm", "run", "dev"]
