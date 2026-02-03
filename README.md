@@ -1,8 +1,6 @@
 # db_practice
 
-Work in progress — a portfolio project for practicing PostgreSQL with a modern backend stack.
-
-This project does not yet contain any specific features beyond the basic setup. New functionality will be added incrementally.
+A portfolio project for practicing PostgreSQL with a modern backend stack. Features a hockey league database with teams, players, games, and statistics.
 
 ## Tech Stack
 
@@ -18,7 +16,8 @@ This project does not yet contain any specific features beyond the basic setup. 
 2. Copy `.env.example` to `.env` and fill in the values
 3. Run `make up`
 4. Run `make migrate` (in a separate terminal)
-5. Test: `curl http://localhost:3000/health`
+5. Run `make seed` to populate sample data
+6. Test: `curl http://localhost:3000/health`
 
 ## Makefile Commands
 
@@ -26,21 +25,47 @@ This project does not yet contain any specific features beyond the basic setup. 
 |----------------|--------------------------------------------------|
 | `make up`      | Build and start all containers                   |
 | `make migrate` | Run database migrations                          |
+| `make seed`    | Populate database with sample data               |
 | `make down`    | Stop all containers                              |
 | `make clean`   | Stop containers and remove built images          |
-| `make psql`    | Open PostgreSQL shell inside the database         |
+| `make psql`    | Open PostgreSQL shell inside the database        |
 | `make fclean`  | Stop containers, remove images, volumes and deps |
 
 ## API Endpoints
 
-| Method   | URL              | Description              |
-|----------|------------------|--------------------------|
-| `GET`    | `/health`        | Health check             |
-| `GET`    | `/examples`      | Get all examples         |
-| `GET`    | `/examples/:id`  | Get one example by id    |
-| `POST`   | `/examples`      | Create a new example     |
-| `PUT`    | `/examples/:id`  | Update an example by id  |
-| `DELETE` | `/examples/:id`  | Delete an example by id  |
+### Teams
+| Method | URL                  | Description            |
+|--------|----------------------|------------------------|
+| `GET`  | `/teams`             | Get all teams          |
+| `GET`  | `/teams/:id`         | Get one team by id     |
+| `GET`  | `/teams/:id/players` | Get team roster        |
+
+### Players
+| Method | URL                   | Description              |
+|--------|-----------------------|--------------------------|
+| `GET`  | `/players`            | Get all players          |
+| `GET`  | `/players/:id`        | Get one player by id     |
+| `GET`  | `/players/:id/stats`  | Get player game-by-game  |
+| `GET`  | `/players/:id/totals` | Get player career totals |
+
+### Stats
+| Method | URL              | Description           |
+|--------|------------------|-----------------------|
+| `GET`  | `/standings`     | League standings      |
+| `GET`  | `/leaders`       | Scoring leaders       |
+| `GET`  | `/leaders/goals` | Goal leaders          |
+
+### System
+| Method | URL       | Description  |
+|--------|-----------|--------------|
+| `GET`  | `/health` | Health check |
+
+## Database Schema
+
+- **team** - Hockey teams (name, city, founded_year)
+- **player** - Players with foreign key to team
+- **game** - Games between two teams with scores
+- **stat** - Player statistics per game (goals, assists, minutes)
 
 ## Database Migrations
 

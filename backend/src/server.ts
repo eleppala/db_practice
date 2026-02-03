@@ -1,6 +1,8 @@
 import Fastify from "fastify";
 import pool from "./db";
-import exampleRoutes from "./routes/example";
+import teamRoutes from "./routes/team";
+import playerRoutes from "./routes/player";
+import statsRoutes from "./routes/stats";
 
 const server = Fastify({ logger: true });
 
@@ -9,7 +11,9 @@ server.get("/health", async () => {
   return { status: "ok", time: result.rows[0].now };
 });
 
-server.register(exampleRoutes);
+server.register(teamRoutes);
+server.register(playerRoutes);
+server.register(statsRoutes);
 
 const start = async () => {
   try {

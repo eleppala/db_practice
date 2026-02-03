@@ -1,3 +1,6 @@
+include .env
+export
+
 up:
 	docker compose up --build
 
@@ -6,6 +9,9 @@ migrate:
 
 psql:
 	docker compose exec db psql -U postgres -d ${POSTGRES_DB}
+
+seed:
+	docker compose exec backend npm run seed
 
 down:
 	docker compose down
@@ -18,4 +24,4 @@ fclean:
 	rm -rf backend/node_modules backend/dist
 
 
-.PHONY: up down clean fclean migrate
+.PHONY: up down clean fclean migrate seed
